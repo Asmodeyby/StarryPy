@@ -38,7 +38,7 @@ class PlayerManagerPlugin(SimpleCommandPlugin):
         client_data = client_connect().parse(data.data)
         try:
             clone_append = ""
-            changed_name = client_data.name
+            changed_name = client_data.name.encode("utf-8")
             for regex in self.regexes:  # Replace problematic chars in client name
                 changed_name = re.sub(regex, "", changed_name)
 
