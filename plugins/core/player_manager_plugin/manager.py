@@ -4,7 +4,7 @@ from functools import wraps
 import inspect
 import logging
 import json
-#import sqlite3
+import sqlite3
 
 from sqlalchemy.ext.mutable import Mutable
 from sqlalchemy.orm import sessionmaker, relationship, backref
