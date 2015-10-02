@@ -168,6 +168,9 @@
             "name_removal_regexes": [
                 "\\^\\w+;|\\^#\\w+;|\\W",
                 "\\s\\s+"
+            ],
+            "name_blocked_regexes": [
+                "\\^\\w+;|\\^#\\w+;"
             ]
         },
         "starteritems_plugin": {

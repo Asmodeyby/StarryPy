@@ -22,6 +22,7 @@ class PlayerManagerPlugin(SimpleCommandPlugin):
         self.l_call = LoopingCall(self.check_logged_in)
         self.l_call.start(1, now=False)
         self.regexes = self.config.plugin_config['name_removal_regexes']
+        self.blocked_regexes = self.config.plugin_config['name_blocked_regexes']
         self.adminss = self.config.plugin_config['admin_ss']
 
     def deactivate(self):
@@ -39,6 +40,15 @@ class PlayerManagerPlugin(SimpleCommandPlugin):
         try:
             clone_append = ""
             changed_name = client_data.name.encode("utf-8")
+
+            for regex in self.blocked_regexes:  # Replace blocked chars in client name
+                changed_name = re.sub(regex, "", changed_name)
+
+            if client_data.name != changed_name:  # Logging changed username
+                raise NameError("Your name must not be colored or encoded!")
+
+            changed_name = client_data.name.encode("utf-8")
+
             for regex in self.regexes:  # Replace problematic chars in client name
                 changed_name = re.sub(regex, "", changed_name)
 
@@ -46,8 +56,7 @@ class PlayerManagerPlugin(SimpleCommandPlugin):
                 raise NameError("Your name must not be empty!")
 
             if client_data.name != changed_name:  # Logging changed username
-                raise NameError("Your name must not be colored or encoded!")
-                #self.logger.info("Player tried to log in with name %s, replaced with %s.", client_data.name, changed_name)
+                self.logger.info("Player tried to log in with name %s, replaced with %s.", client_data.name, changed_name)
 
             changed_player = self.player_manager.get_by_uuid(client_data.uuid)
             if changed_player is not None and changed_player.name != changed_name:
