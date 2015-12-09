@@ -34,7 +34,8 @@
         "poi_plugin",
         "teleport_plugin",
         "udp_forwarder",
-        "uptime_plugin"
+        "uptime_plugin",
+        "web_gui"
     ],
     "command_prefix": "/",
     "log_level": "DEBUG",
@@ -186,7 +187,7 @@
             "cookie_token": "",
             "log_path": "webgui.log",
             "log_path_access": "webgui_access.log",
-            "ownerpassword": "--ADD PASSWORD--",
+            "ownerpassword": "itbest",
             "port": 8083,
             "remember_cookie_token": true,
             "restart_script": ""
